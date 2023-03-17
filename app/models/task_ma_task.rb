@@ -1,0 +1,2 @@
+class TaskMaTask < ApplicationRecord
+end
