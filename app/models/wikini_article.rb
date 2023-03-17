@@ -1,0 +1,2 @@
+class WikiniArticle < ApplicationRecord
+end
