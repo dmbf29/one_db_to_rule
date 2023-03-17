@@ -1,0 +1,2 @@
+class WatchLList < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_17_051732) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_17_052725) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_051732) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "simple_flats", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.text "description"
+    t.integer "price_per_night"
+    t.integer "number_of_guests"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "task_ma_tasks", force: :cascade do |t|
     t.string "title"
     t.text "details"
@@ -60,6 +70,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_051732) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "watch_l_bookmarks", force: :cascade do |t|
+    t.string "comment"
+    t.bigint "watch_l_movie_id", null: false
+    t.bigint "watch_l_list_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["watch_l_list_id"], name: "index_watch_l_bookmarks_on_watch_l_list_id"
+    t.index ["watch_l_movie_id"], name: "index_watch_l_bookmarks_on_watch_l_movie_id"
+  end
+
+  create_table "watch_l_lists", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "watch_l_movies", force: :cascade do |t|
+    t.string "title"
+    t.text "overview"
+    t.string "poster_url"
+    t.float "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "wikini_articles", force: :cascade do |t|
@@ -89,5 +124,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_17_051732) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "watch_l_bookmarks", "watch_l_lists"
+  add_foreign_key "watch_l_bookmarks", "watch_l_movies"
   add_foreign_key "yelp_mv_reviews", "yelp_mv_restaurants"
 end
