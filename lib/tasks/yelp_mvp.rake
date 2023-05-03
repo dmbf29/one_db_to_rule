@@ -16,7 +16,7 @@ namespace :yelp_mvp do
       YelpMvReview.create!(
         content: '',
         rating: rand(3..5),
-        restaurant: restaurant
+        yelp_mv_restaurant: restaurant
       )
     end
 
